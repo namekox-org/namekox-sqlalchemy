@@ -76,7 +76,6 @@ DATABASE:
 ```
 > namekox alembic --help
 ```shell script
-WARNING: Executing a script that is loading libcrypto in an unsafe way. This will fail in a future version of macOS. Set the LIBRESSL_REDIRECT_STUB_ABORT=1 in the environment to force this into an error.
 usage: namekox alembic [-h] [-c CONFIG] [-n NAME] [-x X] [--raiseerr]
                        {branches,current,downgrade,edit,heads,history,init,list_templates,merge,revision,show,stamp,upgrade}
                        ...
