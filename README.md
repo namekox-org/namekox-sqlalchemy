@@ -7,6 +7,7 @@ pip install -U namekox-sqlalchemy
 You may use any database [driver compatible with SQLAlchemy](http://docs.sqlalchemy.org/en/rel_0_9/dialects/index.html) provided it is safe to use with [eventlet](http://eventlet.net). This will include all pure This will inc-python drivers. Known safe drivers are:
 * [pysqlite](http://docs.sqlalchemy.org/en/rel_0_9/dialects/sqlite.html#module-sqlalchemy.dialects.sqlite.pysqlite)
 * [pymysql](http://docs.sqlalchemy.org/en/rel_0_9/dialects/mysql.html#module-sqlalchemy.dialects.mysql.pymysql)
+* [pyodbc](https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver15)
 
 # Example
 ```python
@@ -40,6 +41,7 @@ class Result(Model, su.Timestamp):
 class ResultSchema(Schema):
     ip = fields.String(required=True)
     alive = fields.Boolean(required=True)
+    created = fields.DateTime(required=True)
 
 
 def generate_ip():
@@ -175,7 +177,8 @@ INFO  [alembic.runtime.migration] Running upgrade  -> 2178367b7697, init
     "data": [
         {
             "ip": "229.157.217.181",
-            "alive": false
+            "alive": false,
+            "created": "2020-11-04T03:27:12.214048+00:00"
         }
     ],
     "call_id": "c1901120-cf4d-4e5b-a546-f8415abd166d"
