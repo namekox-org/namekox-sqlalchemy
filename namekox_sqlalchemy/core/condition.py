@@ -11,6 +11,10 @@ from .. import exceptions
 
 
 class DynamicCondition(object):
+    """ Dynamic generate orm condition from dict
+    doc:
+    https://docs.sqlalchemy.org/en/13/core/sqlelement.html?highlight=columnoperators#sqlalchemy.sql.operators.ColumnOperators
+    """
     def __init__(self, models, default_model):
         self.models = models
         self.default_model = default_model
