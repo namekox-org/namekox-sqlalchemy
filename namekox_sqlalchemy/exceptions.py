@@ -3,5 +3,5 @@
 # author: forcemain@163.com
 
 
-class BadRequest(Exception):
+class BadCondition(Exception):
     pass

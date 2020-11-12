@@ -4,6 +4,8 @@
 
 
 import sqlalchemy as sa
+
+
 from sqlalchemy.sql.elements import BooleanClauseList
 
 
@@ -55,12 +57,12 @@ class DynamicCondition(object):
             return self.to_orm_condition(condition)
         relation_map = {'or': sa.or_, 'and': sa.and_}
         if not isinstance(condition, list) or len(condition) != 3:
-            errs = 'condition required [a, and, b] or [a or b]'
-            raise exceptions.BadRequest(errs)
+            errs = 'required [a, and, b] or [a or b]'
+            raise exceptions.BadCondition(errs)
         relation_key = condition[1]
         if relation_key not in relation_map:
-            errs = 'condition relation only supported and / or'
-            raise exceptions.BadRequest(errs)
+            errs = 'relation only supported and / or'
+            raise exceptions.BadCondition(errs)
         condition_a = condition[0]
         condition_b = condition[2]
         relation = relation_map[relation_key]
