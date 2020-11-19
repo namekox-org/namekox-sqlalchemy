@@ -11,12 +11,13 @@ from namekox_sqlalchemy.constants import DATABASE_CONFIG_KEY
 
 
 class Database(Dependency):
-    def __init__(self, dbname, dbbase, engine_options=None, session_options=None):
+    def __init__(self, dbname, dbbase, session_wrapper=None, engine_options=None, session_options=None):
         self.engine = None
         self.session = None
         self.dbname = dbname
         self.dbbase = dbbase
         self.session_cls = None
+        self.session_wrapper = session_wrapper
         self.engine_options = engine_options or {}
         self.session_options = session_options or {}
         super(Database, self).__init__(dbbase, engine_options=engine_options, session_options=session_options)
@@ -29,6 +30,7 @@ class Database(Dependency):
         duri = self.uris[self.dbname].format(dbname=self.dbbase.__name__)
         self.engine = create_engine(duri, **self.engine_options)
         self.session_cls = sessionmaker(bind=self.engine, **self.session_options)
+        self.session_cls = self.session_wrapper(self.session_cls) if self.session_wrapper else self.session_cls
 
     def stop(self):
         self.engine and self.engine.dispose()
