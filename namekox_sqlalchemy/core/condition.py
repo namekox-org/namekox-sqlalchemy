@@ -3,6 +3,7 @@
 # author: forcemain@163.com
 
 
+import inspect
 import sqlalchemy as sa
 
 
@@ -35,10 +36,11 @@ class DynamicCondition(object):
             condition_data = []
             default_model_name = self.default_model.__name__
             for sk in condition:
-                if not hasattr(self.models, sk.split('.')[0]):
-                    dk = '{0}.{1}'.format(default_model_name, sk)
-                else:
+                md = getattr(self.models, sk.split('.')[0], None)
+                if md and inspect.isclass(md):
                     dk = sk
+                else:
+                    dk = '{0}.{1}'.format(default_model_name, sk)
                 dk = self.re_get_attribute(self.models, dk)
                 if not callable(dk):
                     dv = (dk == condition[sk])
